@@ -2,10 +2,10 @@
 
 def main():
     #letters = {'a':0, 'b':1, 'c':2 , 'd':3 , 'e':4, 'f':5 , 'g':6, 'h':7, 'i':8}
-    letters = {'a':0, 'b':1, 'c':2 , 'd':3 , 'e':4, 'f':5 , 'g':6}
-    input_char = 'g'
+    letters = {'a':0, 'b':1, 'c':2 , 'd':3 , 'e':4, 'f':5 , 'g':6, 'h':7, 'i':8, 'j':9, 'k':10 }
+    input_char = 'j'
     # b denotes the shift 
-    a ,b = 2,3
+    a ,b = 2,len(letters)
     
     if input_char in letters:
         cipher_char = EncryptCharacter(input_char,letters,a,b)
@@ -23,8 +23,9 @@ def DecryptCharacter(encrypt_char, letter_set, a, b):
     
     if AreRelativePrime(a, n):
         a_inverse = (a ** (n-2)) % n
-        plain_char = ((a_inverse * encrypt_char) + (-a_inverse * b)) % n
-        print(plain_char)
+        plain_char = (a_inverse * (encrypt_char - b)) %n
+        
+        #Find the key from value 
         for key,value in letter_set.items():
             if value == plain_char:
                 return key
@@ -38,7 +39,7 @@ def EncryptCharacter(plain_char, letter_set,a,b):
     cipher_char = plain_char
     
     if AreRelativePrime(a,n):
-        cipher_char = (x + b) % n
+        cipher_char = (a*x + b) % n
         return cipher_char
     else:
         return 'Please change value of a such that a & n are coprime numbers, n is a prime number, n>a'
